@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
 defineProps({
+  id: Number,
   title: String,
   image: String,
   description: String,
@@ -23,7 +24,7 @@ defineProps({
         <h1 class="text-lg">
           <RouterLink
             class="font-semibold text-black no-underline hover:underline"
-            to="/details"
+            :to="'/details/' + id"
           >
             {{ title }}
           </RouterLink>

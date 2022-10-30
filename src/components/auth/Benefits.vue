@@ -1,39 +1,46 @@
 <script setup>
-import IconLayer from "components/icons/IconLayer.vue";
-import IconBadge from "components/icons/IconBadge.vue";
-import IconBook from "components/icons/IconBook.vue";
+import { ref } from "vue";
+
+const benefits = ref([
+  {
+    id: "1",
+    icon: "icon-layer.svg",
+    title: "Customizable",
+    description: "Accelerate your work with our millions",
+    addition: "of ready-to-use design projects.",
+  },
+  {
+    id: "2",
+    icon: "icon-badge.svg",
+    title: "500 Fortune",
+    description: "Accelerate your work with our millions",
+    addition: "of ready-to-use design projects.",
+  },
+  {
+    id: "3",
+    icon: "icon-book.svg",
+    title: "Documentation",
+    description: "Accelerate your work with our millions",
+    addition: "of ready-to-use design projects.",
+  },
+]);
 </script>
 <template>
-  <main>
-    <div class="mb-12">
-      <div class="block mb-2">
-        <IconLayer />
-        <h3 class="inline-block ml-2 text-lg font-semibold">Customizable</h3>
-      </div>
-      <p class="mt-2 text-lg text-gray-500">
-        Accelerate your work with our millions <br />
-        of ready-to-use design projects.
-      </p>
+  <div class="mb-12" v-for="benefit in benefits" :key="benefit.id">
+    <div class="block mb-2">
+      <img
+        :src="'/src/assets/img/' + benefit.icon"
+        alt=""
+        style="display: inline"
+      />
+
+      <h3 class="inline-block ml-2 text-lg font-semibold">
+        {{ benefit.title }}
+      </h3>
     </div>
-    <div class="mb-12">
-      <div class="block mb-2">
-        <IconBadge />
-        <h3 class="inline-block ml-2 text-lg font-semibold">500 Fortune</h3>
-      </div>
-      <p class="mt-2 text-lg text-gray-500">
-        Accelerate your work with our millions <br />
-        of ready-to-use design projects.
-      </p>
-    </div>
-    <div class="mb-12">
-      <div class="block mb-2">
-        <IconBook />
-        <h3 class="inline-block ml-2 text-lg font-semibold">Documentation</h3>
-      </div>
-      <p class="mt-2 text-lg text-gray-500">
-        Accelerate your work with our millions <br />
-        of ready-to-use design projects.
-      </p>
-    </div>
-  </main>
+    <p class="mt-2 text-lg text-gray-500">
+      {{ benefit.description }} <br />
+      {{ benefit.addition }}
+    </p>
+  </div>
 </template>

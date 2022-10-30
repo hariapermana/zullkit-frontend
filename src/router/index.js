@@ -25,7 +25,7 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-      path: "/details",
+      path: "/details/:id",
       name: "details",
       component: DetailsView,
     },
