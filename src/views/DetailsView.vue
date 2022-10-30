@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import Gallery from "components/details/Gallery.vue";
+</script>
 <template>
   <div class="container p-2 mx-auto my-10 max-w-7xl">
     <div class="flex flex-row flex-wrap py-4">
@@ -9,29 +11,7 @@
           RoboCrypto UI Kit
         </h1>
         <p class="text-gray-500">Build your next coin startup</p>
-        <section id="gallery">
-          <img
-            src="@/assets/img/gallery-1.png"
-            alt=""
-            class="w-full mt-6 rounded-2xl"
-          />
-          <div class="grid grid-cols-4 gap-4 mt-4">
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="@/assets/img/gallery-2.png" class="w-full" alt="" />
-            </div>
-            <div
-              class="overflow-hidden cursor-pointer ring-2 ring-indigo-500 rounded-2xl"
-            >
-              <img src="@/assets/img/gallery-3.png" class="w-full" alt="" />
-            </div>
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="@/assets/img/gallery-4.png" class="w-full" alt="" />
-            </div>
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="@/assets/img/gallery-5.png" class="w-full" alt="" />
-            </div>
-          </div>
-        </section>
+        <Gallery />
         <section class="" id="orders">
           <h1 class="mt-8 mb-3 text-lg font-semibold">About</h1>
           <div class="text-gray-500">
