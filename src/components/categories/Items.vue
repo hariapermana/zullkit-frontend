@@ -15,7 +15,7 @@ onMounted(() => {
 async function itemsData() {
   try {
     const response = await axios.get(
-      "http://zullkit-backend.buildwithangga.id/api/categories?id=" +
+      "https://zullkit-backend.buildwithangga.id/api/categories?id=" +
         route.params.id
     );
     items.value = response.data.data.products;
