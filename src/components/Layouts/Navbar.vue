@@ -1,5 +1,18 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { onMounted, computed } from "vue";
+import { RouterLink } from "vue-router";
+import { useUserStore } from "@/stores/user";
+
+import Auth from "./Auth.vue";
+import UserInfo from "./UserInfo.vue";
+
+const userStore = useUserStore();
+const user = computed(() => userStore.getUser);
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+
+onMounted(() => {
+  userStore.fetchUser();
+});
 </script>
 
 <template>
@@ -16,20 +29,8 @@ import { RouterLink, RouterView } from "vue-router";
           alt="Zullkit Logo"
         />
       </RouterLink>
-      <div class="md:order-2">
-        <RouterLink
-          to="/login"
-          class="px-8 py-3 mt-2 mr-2 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-sm md:px-8 hover:shadow"
-        >
-          Sign In
-        </RouterLink>
-        <RouterLink
-          to="/register"
-          class="px-8 py-3 text-base font-medium text-white border border-transparent rounded-full bg-navy hover:bg-navy md:py-2 md:text-sm md:px-8 hover:shadow"
-        >
-          Sign Up
-        </RouterLink>
-      </div>
+      <UserInfo v-if="isLoggedIn" :user="user.data" />
+      <Auth v-else />
       <div
         class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
         id="mobile-menu-2"

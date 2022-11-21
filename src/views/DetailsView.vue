@@ -3,8 +3,12 @@ import { useRoute, RouterLink } from "vue-router";
 import Gallery from "components/details/Gallery.vue";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
+import { useUserStore } from "@/stores/user";
 
 const route = useRoute();
+const userStore = useUserStore();
+const user = computed(() => userStore.getUser);
+const isLoggedIn = computed(() => userStore.isLoggedIn);
 const item = ref(false);
 
 async function itemsDetails() {
@@ -22,6 +26,7 @@ async function itemsDetails() {
 
 onMounted(() => {
   window.scrollTo(0, 0);
+  userStore.fetchUser();
   itemsDetails();
 });
 
@@ -41,7 +46,10 @@ const features = computed(() => {
             {{ item.name }}
           </h1>
           <p class="text-gray-500">Build your next coin startup</p>
-          <Gallery />
+          <Gallery
+            :defaultImage="item.thumbnails"
+            :galleries="item.galleries"
+          />
           <section class="" id="orders">
             <h1 class="mt-8 mb-3 text-lg font-semibold">About</h1>
             <div class="text-gray-500" v-html="item.description"></div>
@@ -83,7 +91,11 @@ const features = computed(() => {
               <div>
                 <h1 class="mt-5 mb-3 font-semibold text-md">Great Features</h1>
                 <ul class="mb-6 text-gray-500" v-if="item">
-                  <li class="mb-2" v-for="feature in features">
+                  <li
+                    class="mb-2"
+                    v-for="feature in features"
+                    :key="feature.name"
+                  >
                     {{ feature }}
                     <img
                       src="@/assets/img/icon-check.png"
@@ -93,12 +105,25 @@ const features = computed(() => {
                   </li>
                 </ul>
               </div>
-              <RouterLink
-                to="/pricing"
-                class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
-              >
-                Download Now
-              </RouterLink>
+              <div>
+                <div v-if="user.data.subscription.length > 0">
+                  <a
+                    :href="item.file"
+                    target="_blank"
+                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
+                  >
+                    Download Now
+                  </a>
+                </div>
+                <div v-else>
+                  <RouterLink
+                    to="/pricing"
+                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
+                  >
+                    Subscribe
+                  </RouterLink>
+                </div>
+              </div>
             </div>
           </div>
         </aside>
